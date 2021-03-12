@@ -11,7 +11,7 @@ import "./AllEntries.css";
 
 // import bootstrap styles
 
-function AllEntries() {
+const AllEntries = () => {
   const [entries, setEntries] = useState([]);
   let history = useHistory();
   const ref = firebase.firestore().collection("entries");
@@ -62,8 +62,10 @@ function AllEntries() {
         <div>
           {entries.map((entry) => {
             return (
-              <div key={entry.id}>
-                <h2>{entry.title}</h2>
+              <Container className="all-entries-single" key={entry.id}>
+                <Link to={`/entries/${entry.id}`}>
+                  <h2>{entry.title}</h2>
+                </Link>
                 <h4>{entry.location}</h4>
                 <h5>{entry.createdAt}</h5>
                 <p>{entry.body}</p>
@@ -85,13 +87,13 @@ function AllEntries() {
                     Delete Entry
                   </Button>
                 </ButtonToolbar>
-              </div>
+              </Container>
             );
           })}
         </div>
       )}
     </Container>
   );
-}
+};
 
 export default AllEntries;
