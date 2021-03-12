@@ -11,10 +11,13 @@ import "./AllEntries.css";
 
 // import bootstrap styles
 
-const AllEntries = () => {
+const AllEntries = (route) => {
+  const tripId = route.match.params.id;
   const [entries, setEntries] = useState([]);
   let history = useHistory();
-  const ref = firebase.firestore().collection("entries");
+  const ref = firebase.firestore().collection("trips");
+  // .doc(tripId)
+  // .collection("entries");
 
   const getAllEntries = () => {
     ref.onSnapshot((querySnapshot) => {
