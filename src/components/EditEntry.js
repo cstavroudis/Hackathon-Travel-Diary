@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
 
 import firebase from "../utils/config";
 
@@ -8,6 +11,7 @@ const EditEntry = (route) => {
   const [loading, setLoading] = useState(false);
   const [entry, setEntry] = useState({
     id: id,
+    date: "",
     location: "",
     title: "",
     body: "",
@@ -48,31 +52,53 @@ const EditEntry = (route) => {
   }, []);
 
   return (
-    <div>
+    <Container>
       <Link to="/">Back to Entries</Link>
       <h4>Please edit your entry</h4>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="location">Entry Location</label>
-          <input
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="formBasicDate">
+          <Form.Label>Entry Date</Form.Label>
+          <Form.Control
+            name="date"
+            onChange={handleChange}
+            value={entry.date}
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formBasicLocation">
+          <Form.Label>Entry Location</Form.Label>
+          <Form.Control
             name="location"
             onChange={handleChange}
             value={entry.location}
           />
-        </div>
-        <div>
-          <label htmlFor="title">Entry Title</label>
-          <input name="title" onChange={handleChange} value={entry.title} />
-        </div>
-        <div>
-          <label htmlFor="body">Entry Body</label>
-          <input name="body" onChange={handleChange} value={entry.body} />
-        </div>
-        <button type="submit">
-          {loading ? <h3>🕓</h3> : <h3>Edit Entry</h3>}
-        </button>
-      </form>
-    </div>
+        </Form.Group>
+
+        <Form.Group controlId="formBasicTitle">
+          <Form.Label>Entry Title</Form.Label>
+          <Form.Control
+            name="title"
+            onChange={handleChange}
+            value={entry.title}
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formBasicBody.ControlTextarea1">
+          <Form.Label>Entry Body</Form.Label>
+          <Form.Control
+            as="textarea"
+            rows={4}
+            name="body"
+            onChange={handleChange}
+            value={entry.body}
+          />
+        </Form.Group>
+
+        <Button size="sm" type="submit">
+          {loading ? "Loading..." : "Edit Entry"}
+        </Button>
+      </Form>
+    </Container>
   );
 };
 

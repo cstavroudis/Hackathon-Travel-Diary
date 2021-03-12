@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import firebase from "../utils/config";
 import { Link, useHistory } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import ButtonToolbar from "react-bootstrap/ButtonToolbar";
+
+import Container from "react-bootstrap/Container";
+import Jumbotron from "react-bootstrap/Jumbotron";
+
+import "./AllEntries.css";
 
 // import bootstrap styles
 
@@ -41,11 +48,14 @@ function AllEntries() {
   }, []);
 
   return (
-    <div>
-      <h1>My Journal Entries</h1>
-      <Link to="/addEntry">
-        <button>Add New Entry</button>
-      </Link>
+    <Container>
+      <Jumbotron>
+        <h1>My Journal Entries</h1>
+        <Link to="/addEntry">
+          <Button>Add New Entry</Button>
+        </Link>
+      </Jumbotron>
+
       {entries.length < 1 ? (
         <div>Add your first journal entry here.</div>
       ) : (
@@ -57,16 +67,30 @@ function AllEntries() {
                 <h4>{entry.location}</h4>
                 <h5>{entry.createdAt}</h5>
                 <p>{entry.body}</p>
-                <button onClick={() => editEntry(entry.id)}>Edit Entry</button>
-                <button onClick={() => deleteEntry(entry.id)}>
-                  Delete Entry
-                </button>
+                <ButtonToolbar className="all-entries-btn-toolbar">
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    className="entry-btn"
+                    onClick={() => editEntry(entry.id)}
+                  >
+                    Edit Entry
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    className="entry-btn"
+                    onClick={() => deleteEntry(entry.id)}
+                  >
+                    Delete Entry
+                  </Button>
+                </ButtonToolbar>
               </div>
             );
           })}
         </div>
       )}
-    </div>
+    </Container>
   );
 }
 
