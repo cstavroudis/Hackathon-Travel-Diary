@@ -77,8 +77,8 @@ exports.deleteEntry = async (req, res) => {
     // firestore path
     const document = db.doc(`/entries/${req.params.entryId}`);
     const doc = await document.get();
-    if (doc.data().username !== request.user.username) {
-      return response.status(403).json({ error: "UnAuthorized" });
+    if (doc.data().username !== req.user.username) {
+      return res.status(403).json({ error: "UnAuthorized" });
     }
     if (!doc.exists) {
       res.status(404).json({ error: "Entry not found" });

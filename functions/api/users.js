@@ -90,7 +90,7 @@ exports.signUpUser = async (req, res) => {
   }
 };
 
-deleteImage = async (imageName) => {
+const deleteImage = async (imageName) => {
   try {
     const bucket = admin.storage().bucket();
     const path = `${imageName}`;
