@@ -4,6 +4,8 @@ import Nav from "react-bootstrap/Nav";
 import { Link } from "react-router-dom";
 import "firebase/auth";
 import SignIn from "./SignIn";
+import LogOut from "./LogOut";
+import { connect } from "react-redux";
 
 const NavBar = (props) => {
   return (
@@ -15,13 +17,16 @@ const NavBar = (props) => {
         <Nav.Link as={Link} to="/trips">
           Trips
         </Nav.Link>
-        {/* <Form inline onSubmit={handleSubmit}>
-          <Button type="submit">Login</Button>
-        </Form> */}
-        <SignIn />
+        {props.firebase.auth.email ? <LogOut /> : <SignIn />}
       </Nav>
     </Navbar>
   );
 };
 
-export default NavBar;
+const mapState = (state) => {
+  console.log("state.firebase:", state.firebase);
+  return {
+    firebase: state.firebase,
+  };
+};
+export default connect(mapState)(NavBar);
