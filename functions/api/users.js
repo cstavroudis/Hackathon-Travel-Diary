@@ -1,17 +1,16 @@
-const { admin, db } = require("../util/admin");
-const config = require("../util/config");
+const { db } = require("../utils/admin");
+const firebase = require("../utils/config");
 
-const firebase = require("firebase");
-
-firebase.initializeApp(config);
-
-const { validateLoginData, validateSignUpData } = require("../util/validators");
+const {
+  validateLoginData,
+  validateSignUpData,
+} = require("../utils/validators");
 
 // for uploading photo
-const BusBoy = require("busboy");
-const path = require("path");
-const os = require("os");
-const fs = require("fs");
+// const BusBoy = require("busboy");
+// const path = require("path");
+// const os = require("os");
+// const fs = require("fs");
 
 // POST /api/login
 exports.loginUser = async (req, res) => {
@@ -89,7 +88,7 @@ exports.signUpUser = async (req, res) => {
     }
   }
 };
-
+/*
 const deleteImage = async (imageName) => {
   try {
     const bucket = admin.storage().bucket();
@@ -141,6 +140,7 @@ exports.uploadProfilePhoto = (req, res) => {
   });
   busboy.end(req.rawBody);
 };
+*/
 
 // GET /api/user
 exports.getUserDetails = async (req, res) => {

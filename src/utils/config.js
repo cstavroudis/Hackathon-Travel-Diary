@@ -2,6 +2,10 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 
+// const firebase = require("firebase/app");
+// require("firebase/firestore");
+// require("firebase/auth");
+
 // const firebaseConfig = {
 //   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
 //   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -24,6 +28,8 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-// firebase.firestore.setLogLevel("debug");
+firebase.firestore.setLogLevel("debug");
+
+// module.exports = firebase;
 
 export default firebase;

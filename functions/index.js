@@ -6,7 +6,7 @@ const functions = require("firebase-functions");
 
 const app = require("express")();
 
-const auth = require("./util/auth");
+const auth = require("./utils/auth");
 
 const {
   getAllEntries,
@@ -19,7 +19,7 @@ const {
 const {
   loginUser,
   signUpUser,
-  uploadProfilePhoto,
+  // uploadProfilePhoto,
   getUserDetails,
   updateUserDetails,
 } = require("./API/users");
@@ -35,7 +35,7 @@ app.put("/entry/:entryId", editEntry);
 // Users
 app.post("/login", loginUser);
 app.post("/signup", signUpUser);
-app.post("/user/image", auth, uploadProfilePhoto);
+// app.post("/user/image", auth, uploadProfilePhoto);
 app.get("/user", auth, getUserDetails);
 app.post("/user", auth, updateUserDetails);
 

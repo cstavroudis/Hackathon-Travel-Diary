@@ -1,4 +1,4 @@
-const { db } = require("../util/admin");
+const { db } = require("../utils/admin");
 
 // GET /api/entries
 exports.getAllEntries = async (req, res) => {
@@ -10,7 +10,6 @@ exports.getAllEntries = async (req, res) => {
       .get();
     let entries = [];
     data.forEach((doc) => {
-      console.log("current doc:", doc);
       entries.push({
         entryId: doc.id,
         title: doc.data().title,
