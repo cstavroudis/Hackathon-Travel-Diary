@@ -28,7 +28,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-firebase.firestore.setLogLevel("debug");
+// firebase.firestore.setLogLevel("debug");
 
 // module.exports = firebase;
 

@@ -56,10 +56,11 @@ const AllTrips = () => {
           {trips.map((trip) => {
             return (
               <Container className="all-trips-single" key={trip.id}>
-                <Link to={`/trips/${trip.id}`}>
-                  <h2>{trip.countries}</h2>
+                <Link to={`/trips/${trip.id}/entries`}>
+                  <h2>{trip.title}</h2>
                 </Link>
-                <h5>{trip.date}</h5>
+                <h5>{trip.countries}</h5>
+                <h6>{trip.date}</h6>
                 {/* <ButtonToolbar className="all-trips-btn-toolbar">
                   <Button
                     variant="secondary"

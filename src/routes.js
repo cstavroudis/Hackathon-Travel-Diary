@@ -10,8 +10,8 @@ import SingleEntry from "./components/SingleEntry";
 function Routes() {
   return (
     <Switch>
-      <Route exact path="/" component={AllTrips} />
-      <Route exact path="/:id/entries" component={AllEntries} />
+      <Route exact path="/trips" component={AllTrips} />
+      <Route exact path="/trips/:id/entries" component={AllEntries} />
       <Route exact path="/:id/entries/:id" component={SingleEntry} />
       <Route path="/:id/entries/add" component={AddEntry} />
       <Route path="/:id/entries/:id/edit" component={EditEntry} />

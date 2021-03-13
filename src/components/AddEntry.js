@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -7,9 +6,10 @@ import Form from "react-bootstrap/Form";
 import firebase from "../utils/config";
 import { v4 as uuidv4 } from "uuid";
 
-const AddEntry = () => {
+const AddEntry = (props) => {
   const [entry, setEntry] = useState({
     id: uuidv4(),
+    tripId: props.tripId,
     location: "",
     title: "",
     body: "",
@@ -28,6 +28,8 @@ const AddEntry = () => {
       setLoading(true);
       await ref.doc(entry.id).set(entry);
       setEntry({
+        id: uuidv4(),
+        tripId: props.tripId,
         date: "",
         location: "",
         title: "",
@@ -41,8 +43,6 @@ const AddEntry = () => {
 
   return (
     <Container>
-      <Link to="/">Back to Entries</Link>
-      <h4>Please add a new entry</h4>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicDate">
           <Form.Label>Entry Date</Form.Label>

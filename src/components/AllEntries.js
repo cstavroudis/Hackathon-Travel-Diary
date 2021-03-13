@@ -3,24 +3,44 @@ import firebase from "../utils/config";
 import { Link, useHistory } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
-
+import Accordion from "react-bootstrap/Accordion";
+import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import Jumbotron from "react-bootstrap/Jumbotron";
+import AddEntry from "./AddEntry";
 
 import "./AllEntries.css";
 
-// import bootstrap styles
-
 const AllEntries = (route) => {
   const tripId = route.match.params.id;
+  const [trip, setTrip] = useState([]);
   const [entries, setEntries] = useState([]);
   let history = useHistory();
-  const ref = firebase.firestore().collection("trips");
-  // .doc(tripId)
-  // .collection("entries");
+  const tripsRef = firebase
+    .firestore()
+    .collection("trips")
+    .where("id", "==", tripId);
+
+  console.log("trip:", trip);
+
+  const getTrip = () => {
+    tripsRef.onSnapshot((querySnapshot) => {
+      const list = [];
+      querySnapshot.forEach((doc) => {
+        list.push(doc.data());
+      });
+      console.log("list:", list);
+      setTrip(list);
+    });
+  };
+
+  const entriesRef = firebase
+    .firestore()
+    .collection("entries")
+    .where("tripId", "==", tripId);
 
   const getAllEntries = () => {
-    ref.onSnapshot((querySnapshot) => {
+    entriesRef.onSnapshot((querySnapshot) => {
       const list = [];
       querySnapshot.forEach((doc) => {
         list.push(doc.data());
@@ -36,7 +56,7 @@ const AllEntries = (route) => {
 
   const deleteEntry = async (id) => {
     try {
-      await ref.doc(String(id)).delete();
+      await entriesRef.doc(String(id)).delete();
     } catch (error) {
       console.log(
         "There was an error in deleteEntry func in AllEntries component:",
@@ -47,16 +67,14 @@ const AllEntries = (route) => {
 
   useEffect(() => {
     getAllEntries();
+    getTrip();
     // eslint-disable-next-line
   }, []);
 
   return (
     <Container>
       <Jumbotron>
-        <h1>My Journal Entries</h1>
-        <Link to="/addEntry">
-          <Button>Add New Entry</Button>
-        </Link>
+        <h1>{trip[0].title} Journal Entries</h1>
       </Jumbotron>
 
       {entries.length < 1 ? (
@@ -66,7 +84,7 @@ const AllEntries = (route) => {
           {entries.map((entry) => {
             return (
               <Container className="all-entries-single" key={entry.id}>
-                <Link to={`/entries/${entry.id}`}>
+                <Link to={`/entries/${tripId}/entries/${entry.id}`}>
                   <h2>{entry.title}</h2>
                 </Link>
                 <h4>{entry.location}</h4>
@@ -95,6 +113,18 @@ const AllEntries = (route) => {
           })}
         </div>
       )}
+      <Accordion>
+        <Card>
+          <Accordion.Toggle as={Card.Header} eventKey="0">
+            Add Entry
+          </Accordion.Toggle>
+          <Accordion.Collapse eventKey="0">
+            <Card.Body>
+              <AddEntry tripId={tripId} />
+            </Card.Body>
+          </Accordion.Collapse>
+        </Card>
+      </Accordion>
     </Container>
   );
 };
