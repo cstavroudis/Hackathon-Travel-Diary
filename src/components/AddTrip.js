@@ -2,48 +2,52 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
-
-import firebase from "../utils/config";
+import { useFirestore } from "react-redux-firebase";
+import { useSelector } from "react-redux";
 
 const AddTrip = () => {
   const [trip, setTrip] = useState({
-    id: "",
     title: "",
     countries: "",
     date: "",
   });
+  const firestore = useFirestore();
+  const { uid } = useSelector((state) => state.firebase.auth);
+
   const [loading, setLoading] = useState(false);
-  const ref = firebase.firestore().collection("trips");
+  // const ref = firebase.firestore().collection("trips");
 
   const handleChange = (event) => {
     setTrip({ ...trip, [event.target.name]: event.target.value });
   };
 
-  const handleSubmit = async (event) => {
-    try {
-      event.preventDefault();
-      const countries = [...trip.countries.split(", ")];
-      const id = trip.title;
-      await setTrip({ ...trip, id });
-      await setTrip({ ...trip, countries });
-      console.log("trip:", trip);
-      setLoading(true);
-      await ref.doc(id).set(trip);
-      setTrip({
-        id: "",
-        title: "",
-        date: "",
-        countries: "",
+  const addNewTrip = (trip) => {
+    setLoading(true);
+    firestore
+      .collection("users")
+      .doc(uid)
+      .collection("trips")
+      .add({
+        ...trip,
+        isDone: false,
+      })
+      .then((docRef) => {
+        docRef.update({
+          tripID: docRef.id,
+        });
       });
-      setLoading(false);
-    } catch (error) {
-      console.log("There was an error adding trip.", error);
-    }
+    setTrip({
+      title: "",
+      date: "",
+      countries: "",
+    });
+    setLoading(false);
   };
 
   return (
     <Container>
-      <Form onSubmit={handleSubmit}>
+      {/* <Form onSubmit={handleSubmit}> */}
+      <Form action="">
         <Form.Group controlId="formBasicTitle">
           <Form.Label>Trip Title</Form.Label>
           <Form.Control
@@ -69,7 +73,15 @@ const AddTrip = () => {
           <Form.Text>Please separate by commas.</Form.Text>
         </Form.Group>
 
-        <Button size="sm" type="submit">
+        {/* <Button size="sm" type="submit">
+          {loading ? "Loading..." : "Add Trip"}
+        </Button> */}
+        <Button
+          onClick={(event) => {
+            event.preventDefault();
+            addNewTrip(trip);
+          }}
+        >
           {loading ? "Loading..." : "Add Trip"}
         </Button>
       </Form>

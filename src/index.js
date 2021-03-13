@@ -23,13 +23,13 @@ const rrfProps = {
 };
 
 ReactDOM.render(
-  <React.StrictMode>
+  <React.Fragment>
     <Provider store={store}>
       <ReactReduxFirebaseProvider {...rrfProps}>
         <Routes />
       </ReactReduxFirebaseProvider>
     </Provider>
-  </React.StrictMode>,
+  </React.Fragment>,
   document.getElementById("root")
 );
 
