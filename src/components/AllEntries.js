@@ -74,7 +74,7 @@ const AllEntries = (route) => {
   return (
     <Container>
       <Jumbotron>
-        <h1>{trip[0].title} Journal Entries</h1>
+        {trip.length && <h1>{trip[0].title} Journal Entries</h1>}
       </Jumbotron>
 
       {entries.length < 1 ? (
