@@ -8,6 +8,8 @@ import Jumbotron from "react-bootstrap/Jumbotron";
 import AddEntry from "./AddEntry";
 import { useSelector } from "react-redux";
 import { useFirestoreConnect } from "react-redux-firebase";
+import { useFirestore } from "react-redux-firebase";
+
 import { Link } from "react-router-dom";
 
 import "./AllEntries.css";
@@ -15,6 +17,8 @@ import "./AllEntries.css";
 const AllEntries = (route) => {
   const tripId = route.match.params.id;
   const { displayName, uid } = useSelector((state) => state.firebase.auth);
+  const firestore = useFirestore();
+
   console.log("tripId:", tripId);
   useFirestoreConnect({
     collection: `users/${uid}/trips/${tripId}/entries`,
@@ -31,6 +35,22 @@ const AllEntries = (route) => {
   // console.log("trip:", trip);
 
   console.log("entries:", entries);
+
+  const deleteEntry = async (entryId) => {
+    try {
+      await firestore
+        .collection("users")
+        .doc(uid)
+        .collection("trips")
+        .doc(tripId)
+        .collection("entries")
+        .doc(entryId)
+        .delete();
+      console.log("entry deleted:", entryId);
+    } catch (error) {
+      console.log("There was an error deleting entry:", error);
+    }
+  };
 
   return (
     <Container>
@@ -49,8 +69,8 @@ const AllEntries = (route) => {
         <div>
           {Object.values(entries).map((entry) => {
             return (
-              <Container className="all-entries-single" key={entry.id}>
-                <Link to={`/entries/${tripId}/entries/${entry.id}`}>
+              <Container className="all-entries-single" key={entry.entryId}>
+                <Link to={`/entries/${tripId}/entries/${entry.entryId}`}>
                   <h2>{entry.title}</h2>
                 </Link>
                 <h4>{entry.location}</h4>
@@ -69,7 +89,7 @@ const AllEntries = (route) => {
                     variant="secondary"
                     size="sm"
                     className="entry-btn"
-                    // onClick={() => deleteEntry(entry.id)}
+                    onClick={() => deleteEntry(entry.entryId)}
                   >
                     Delete Entry
                   </Button>
