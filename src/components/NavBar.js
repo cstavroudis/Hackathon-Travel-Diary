@@ -7,6 +7,8 @@ import SignIn from "./SignIn";
 import LogOut from "./LogOut";
 import { connect } from "react-redux";
 
+import "../css/NavBar.css";
+
 const NavBar = (props) => {
   return (
     <Navbar bg="dark" variant="dark">
@@ -14,10 +16,16 @@ const NavBar = (props) => {
         Travel Journal
       </Navbar.Brand>
       <Nav>
-        <Nav.Link as={Link} to="/trips">
-          Trips
-        </Nav.Link>
-        {props.firebase.auth.email ? <LogOut /> : <SignIn />}
+        {props.firebase.auth.email ? (
+          <div className="navbar-logged-in">
+            <Nav.Link as={Link} to="/trips">
+              Trips
+            </Nav.Link>
+            <LogOut />
+          </div>
+        ) : (
+          <SignIn />
+        )}
       </Nav>
     </Navbar>
   );

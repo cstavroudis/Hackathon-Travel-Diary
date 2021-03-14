@@ -1,0 +1,9 @@
+.navbar {
+  justify-content: space-between;
+}
+
+/* .navbar-logged-in {
+  width: 20em;
+  flex-direction: row;
+  justify-content: space-between;
+} */

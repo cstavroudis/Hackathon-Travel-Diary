@@ -12,7 +12,7 @@ import { useFirestore } from "react-redux-firebase";
 
 import { Link } from "react-router-dom";
 
-import "./AllEntries.css";
+import "../css/AllEntries.css";
 
 const AllEntries = (route) => {
   const tripId = route.match.params.id;
