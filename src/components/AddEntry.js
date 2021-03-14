@@ -100,7 +100,7 @@ const AddEntry = ({ tripId }) => {
             addNewEntry(entry);
           }}
         >
-          {loading ? "Loading..." : "Add Trip"}
+          {loading ? "Loading..." : "Add Entry"}
         </Button>
       </Form>
     </Container>

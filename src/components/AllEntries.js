@@ -73,8 +73,8 @@ const AllEntries = (route) => {
                 <Link to={`/entries/${tripId}/entries/${entry.entryId}`}>
                   <h2>{entry.title}</h2>
                 </Link>
-                <h4>{entry.location}</h4>
-                <h5>{entry.createdAt}</h5>
+                <h5>{entry.location}</h5>
+                <h6>{entry.date}</h6>
                 <p>{entry.body}</p>
                 <ButtonToolbar className="all-entries-btn-toolbar">
                   <Button

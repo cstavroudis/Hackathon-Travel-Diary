@@ -33,7 +33,7 @@ const AddTrip = () => {
       })
       .then((docRef) => {
         docRef.update({
-          id: docRef.id,
+          tripId: docRef.id,
         });
       });
     setTrip({
