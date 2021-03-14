@@ -13,34 +13,17 @@ const AddEntry = ({ tripId }) => {
     body: "",
     date: "",
   });
-  const [loading, setLoading] = useState(false);
+
   const firestore = useFirestore();
   const { uid } = useSelector((state) => state.firebase.auth);
-
+  const [loading, setLoading] = useState(false);
   console.log("uid:", uid);
+  console.log("tripId:", tripId);
 
   const handleChange = (event) => {
     setEntry({ ...entry, [event.target.name]: event.target.value });
   };
 
-  // const handleSubmit = async (event) => {
-  //   try {
-  //     event.preventDefault();
-  //     setLoading(true);
-  //     await ref.doc(entry.id).set(entry);
-  //     setEntry({
-  //       id: uuidv4(),
-  //       tripId: props.tripId,
-  //       date: "",
-  //       location: "",
-  //       title: "",
-  //       body: "",
-  //     });
-  //     setLoading(false);
-  //   } catch (error) {
-  //     console.log("There was an error adding entry.");
-  //   }
-  // };
   const addNewEntry = (entry) => {
     setLoading(true);
     firestore
@@ -48,6 +31,7 @@ const AddEntry = ({ tripId }) => {
       .doc(uid)
       .collection("trips")
       .doc(tripId)
+      .collection("entries")
       .add({
         ...entry,
         isDone: false,

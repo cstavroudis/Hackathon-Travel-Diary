@@ -32,64 +32,6 @@ const AllEntries = (route) => {
 
   console.log("entries:", entries);
 
-  // const [trip, setTrip] = useState([]);
-  // const [entries, setEntries] = useState([]);
-  // let history = useHistory();
-  // const tripsRef = firebase
-  //   .firestore()
-  //   .collection("trips")
-  //   .where("id", "==", tripId);
-
-  // console.log("trip:", trip);
-
-  // const getTrip = () => {
-  //   tripsRef.onSnapshot((querySnapshot) => {
-  //     const list = [];
-  //     querySnapshot.forEach((doc) => {
-  //       list.push(doc.data());
-  //     });
-  //     console.log("list:", list);
-  //     setTrip(list);
-  //   });
-  // };
-
-  // const entriesRef = firebase
-  //   .firestore()
-  //   .collection("entries")
-  //   .where("tripId", "==", tripId);
-
-  // const getAllEntries = () => {
-  //   entriesRef.onSnapshot((querySnapshot) => {
-  //     const list = [];
-  //     querySnapshot.forEach((doc) => {
-  //       list.push(doc.data());
-  //     });
-  //     console.log("list:", list);
-  //     setEntries(list);
-  //   });
-  // };
-
-  // const editEntry = (id) => {
-  //   history.push("/editEntry/" + id);
-  // };
-
-  // const deleteEntry = async (id) => {
-  //   try {
-  //     await entriesRef.doc(String(id)).delete();
-  //   } catch (error) {
-  //     console.log(
-  //       "There was an error in deleteEntry func in AllEntries component:",
-  //       error
-  //     );
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getAllEntries();
-  //   getTrip();
-  //   // eslint-disable-next-line
-  // }, []);
-
   return (
     <Container>
       <Jumbotron>

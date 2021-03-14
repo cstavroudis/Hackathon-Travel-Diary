@@ -25,7 +25,7 @@ const SingleTrip = ({ trip }) => {
 
   return (
     <Container className="all-trips-single" key={trip.tripId}>
-      <Link to={`/trips/${trip.title}/entries`}>
+      <Link to={`/trips/${trip.id}/entries`}>
         <h2>{trip.title}</h2>
       </Link>
       <h5>{trip.countries}</h5>
