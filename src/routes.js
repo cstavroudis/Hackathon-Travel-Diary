@@ -7,6 +7,7 @@ import SingleEntry from "./components/SingleEntry";
 import history from "./history";
 import NavBar from "./components/NavBar";
 import Home from "./components/Home";
+import Map from "./components/Map";
 
 function Routes(props) {
   return (
@@ -15,6 +16,7 @@ function Routes(props) {
         <NavBar />
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route exact path="/map" component={Map} />
           <Route exact path="/trips" component={AllTrips} />
           <Route exact path="/trips/:id/entries" component={AllEntries} />
           <Route exact path="/trips/:id/entries/:id" component={SingleEntry} />

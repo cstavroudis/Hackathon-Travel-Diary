@@ -15,18 +15,22 @@ const NavBar = (props) => {
       <Navbar.Brand as={Link} to="/">
         Travel Journal
       </Navbar.Brand>
-      <Nav>
-        {props.firebase.auth.email ? (
-          <div className="navbar-logged-in">
-            <Nav.Link as={Link} to="/trips">
-              Trips
-            </Nav.Link>
-            <LogOut />
-          </div>
-        ) : (
+
+      {props.firebase.auth.email ? (
+        <Nav>
+          <Nav.Link as={Link} to="/trips">
+            Trips
+          </Nav.Link>
+          <Nav.Link as={Link} to="/map">
+            My Map
+          </Nav.Link>
+          <LogOut />
+        </Nav>
+      ) : (
+        <Nav>
           <SignIn />
-        )}
-      </Nav>
+        </Nav>
+      )}
     </Navbar>
   );
 };
