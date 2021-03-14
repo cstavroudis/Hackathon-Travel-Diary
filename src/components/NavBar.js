@@ -21,6 +21,9 @@ const NavBar = (props) => {
           <Nav.Link as={Link} to="/trips">
             Trips
           </Nav.Link>
+          <Nav.Link as={Link} to="/countries">
+            My Countries
+          </Nav.Link>
           <Nav.Link as={Link} to="/map">
             My Map
           </Nav.Link>

@@ -8,6 +8,7 @@ import history from "./history";
 import NavBar from "./components/NavBar";
 import Home from "./components/Home";
 import Map from "./components/Map";
+import AllCountries from "./components/AllCountries";
 
 function Routes(props) {
   return (
@@ -17,6 +18,7 @@ function Routes(props) {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/map" component={Map} />
+          <Route exact path="/countries" component={AllCountries} />
           <Route exact path="/trips" component={AllTrips} />
           <Route exact path="/trips/:id/entries" component={AllEntries} />
           <Route exact path="/trips/:id/entries/:id" component={SingleEntry} />

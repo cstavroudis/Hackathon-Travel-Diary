@@ -21,7 +21,23 @@ const AddTrip = () => {
     setTrip({ ...trip, [event.target.name]: event.target.value });
   };
 
-  const addNewTrip = (trip) => {
+  const addNewCountry = (country) => {
+    firestore
+      .collection("users")
+      .doc(uid)
+      .collection("countries")
+      .add({
+        name: country,
+        isDone: false,
+      })
+      .then((docRef) => {
+        docRef.update({
+          countryId: docRef.id,
+        });
+      });
+  };
+
+  const addNewTrip = async (trip) => {
     setLoading(true);
     firestore
       .collection("users")
@@ -36,6 +52,12 @@ const AddTrip = () => {
           tripId: docRef.id,
         });
       });
+    const countries = trip.countries.includes(",")
+      ? trip.countries.split(",").map((currCountry) => currCountry.trim())
+      : trip.countries.trim();
+    Array.isArray(countries)
+      ? await countries.forEach((country) => addNewCountry(country))
+      : await addNewCountry(countries);
     setTrip({
       title: "",
       date: "",
