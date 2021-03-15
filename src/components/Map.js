@@ -57,17 +57,17 @@ const Map = () => {
   // const countryCoords = callCoordsFunc();
   // console.log("countryCoords:", countryCoords);
   // // {countryName: {lat: 12, lng: 12}}
-  let countriesCoords;
+  // let countriesCoords;
 
-  getCoords(countries).then(
-    (coords) => {
-      console.log("coords:", coords);
-      countriesCoords = coords;
-    },
-    (error) => {
-      console.error(error);
-    }
-  );
+  // getCoords(countries).then(
+  //   (coords) => {
+  //     console.log("coords:", coords);
+  //     countriesCoords = coords;
+  //   },
+  //   (error) => {
+  //     console.error(error);
+  //   }
+  // );
 
   return (
     <LoadScript googleMapsApiKey="AIzaSyCDEsVVDxhaLpF-J78BJ9Qe7yDdDJAdW-c">
@@ -75,6 +75,13 @@ const Map = () => {
         {/* {Object.values(countriesCoords).map((countryCoords) => {
           return <Marker position={countryCoords} key={countryCoords.lat} />;
         })} */}
+        <Marker position={{ lat: 37.0902, lng: -95.7129 }} />
+        <Marker position={{ lat: -25.2744, lng: 133.7751 }} />
+        <Marker position={{ lat: 41.8719, lng: 12.5674 }} />
+        <Marker position={{ lat: 23.6345, lng: -102.5528 }} />
+        <Marker position={{ lat: 21.4735, lng: 55.9754 }} />
+        <Marker position={{ lat: -0.0236, lng: 37.9062 }} />
+        <Marker position={{ lat: 8.538, lng: -80.7821 }} />
       </GoogleMap>
     </LoadScript>
   );
