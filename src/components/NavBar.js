@@ -3,7 +3,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import { Link } from "react-router-dom";
 import "firebase/auth";
-import SignIn from "./SignIn";
+import Login from "./Login";
 import LogOut from "./LogOut";
 import { connect } from "react-redux";
 
@@ -31,7 +31,7 @@ const NavBar = (props) => {
         </Nav>
       ) : (
         <Nav>
-          <SignIn />
+          <Login />
         </Nav>
       )}
     </Navbar>

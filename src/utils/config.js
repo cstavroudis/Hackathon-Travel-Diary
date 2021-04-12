@@ -3,7 +3,8 @@ import "firebase/firestore";
 import "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
+  // apiKey: process.env.FIREBASE_API_KEY,
+  apiKey: "AIzaSyANUK4kivghLdWUW1s6pVOnz3wyT4clpfM",
   authDomain: "stackathon-travel-diary.firebaseapp.com",
   projectId: "stackathon-travel-diary",
   storageBucket: "stackathon-travel-diary.appspot.com",

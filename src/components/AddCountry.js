@@ -11,8 +11,10 @@ const AddCountry = () => {
   });
 
   const firestore = useFirestore();
-  const { uid } = useSelector((state) => state.firebase.auth);
+  const user = useSelector((state) => state.firebase.auth);
   const [loading, setLoading] = useState(false);
+  const uid = user.uid;
+  console.log("user on state:", user);
   console.log("uid:", uid);
 
   const handleChange = (event) => {

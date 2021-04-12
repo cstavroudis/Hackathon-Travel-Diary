@@ -1,10 +1,9 @@
 import React from "react";
 import { useFirebase } from "react-redux-firebase";
 import { useHistory } from "react-router-dom";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import { Form, Button } from "react-bootstrap";
 
-const SignIn = () => {
+const Login = () => {
   const firebase = useFirebase();
   const history = useHistory();
 
@@ -33,4 +32,4 @@ const SignIn = () => {
     </Form>
   );
 };
-export default SignIn;
+export default Login;

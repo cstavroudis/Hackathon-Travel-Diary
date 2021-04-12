@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useFirestoreConnect } from "react-redux-firebase";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
@@ -26,6 +26,7 @@ Geocode.setLocationType("ROOFTOP");
 Geocode.enableDebug();
 
 const getCoords = async (countries) => {
+  console.log("in getCoords w countries:", countries);
   try {
     let countryCoords = {};
     for (let key in countries) {
@@ -36,6 +37,7 @@ const getCoords = async (countries) => {
       console.log("coords:", { lat, lng });
       countryCoords[country] = { lat, lng };
     }
+    console.log("countryCoords in getCoords func:", countryCoords);
     return countryCoords;
   } catch (error) {
     console.log("there was an error getting coordinates:", error);
@@ -44,12 +46,11 @@ const getCoords = async (countries) => {
 
 const Map = () => {
   const { uid } = useSelector((state) => state.firebase.auth);
+  const [countriesCoords, setcountriesCoords] = useState({});
   useFirestoreConnect({
     collection: `users/${uid}/countries`,
     storeAs: "countries",
   });
-  const countries = useSelector((state) => state.firestore.data.countries);
-  console.log("countries:", countries);
 
   // const callCoordsFunc = async () => {
   //   return await getCoords(countries);
@@ -69,12 +70,46 @@ const Map = () => {
   //   }
   // );
 
+  const countries = useSelector((state) => state.firestore.data.countries);
+
+  // const countries = Object.values(countriesObj).map(
+  //   (currCountry) => currCountry.name
+  // );
+  console.log("countries:", countries);
+
+  useEffect((countries) => {
+    let awaitedCountries;
+    const fetchCountriesCoords = async () => {
+      awaitedCountries = await countries;
+      console.log("awaitedCountries:", awaitedCountries);
+      const coords = await getCoords(awaitedCountries);
+      setcountriesCoords(coords);
+    };
+    fetchCountriesCoords(awaitedCountries);
+  }, []);
+
+  // const countriesCoords = getCoords(countries);
+  console.log("countriesCoords:", countriesCoords);
+  // {countryName: {lat: 12, lng: 12}}
+  // let countriesCoords;
+
+  // getCoords(countries).then(
+  //   (coords) => {
+  //     console.log("coords:", coords);
+  //     countriesCoords = coords;
+  //   },
+  //   (error) => {
+  //     console.error(error);
+  //   }
+  // );
+
   return (
     <LoadScript googleMapsApiKey="AIzaSyCDEsVVDxhaLpF-J78BJ9Qe7yDdDJAdW-c">
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={2.5}>
-        {/* {Object.values(countriesCoords).map((countryCoords) => {
-          return <Marker position={countryCoords} key={countryCoords.lat} />;
-        })} */}
+        {countriesCoords &&
+          Object.values(countriesCoords).map((countryCoords) => {
+            return <Marker position={countryCoords} key={countryCoords.lat} />;
+          })}
         <Marker position={{ lat: 37.0902, lng: -95.7129 }} />
         <Marker position={{ lat: -25.2744, lng: 133.7751 }} />
         <Marker position={{ lat: 41.8719, lng: 12.5674 }} />
@@ -86,5 +121,7 @@ const Map = () => {
     </LoadScript>
   );
 };
+
+// export default Map;
 
 export default Map;
